@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-navy: #1f4c75;
+  --color-brand-blue: #255d88;
+  --color-brand-accent: #3b8bb8;
+  --color-brand-light: #eaf3f9;
+  --color-brand-pill: #1f4c75;
+  --color-brand-dark: #142e47;
+  --color-brand-body: #476075;
+  --color-brand-muted: #5e778d;
+  --color-brand-footer: #0e2235;
+  --color-brand-footer-dark: #091724;
+  --color-brand-whatsapp: #25d366;
+  --font-outfit: "Roboto", sans-serif;
+  --font-sans: "Roboto", sans-serif;
+}
+
+html,
+body,
+#root {
+  scroll-behavior: smooth;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+  color: var(--color-brand-dark);
+  background-color: #ffffff;
+}
+
+button, input, select, textarea {
+  font-family: "Roboto", sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-blue);
+}
+
+/* 3D Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.group:hover .flip-card-inner,
+.group.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+}
