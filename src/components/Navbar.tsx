@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({ customLogoUrl }) => {
   };
 
   return (
-    <header className={`sticky top-0 left-0 w-full bg-white z-50 transition-all duration-300 border-b border-slate-100 ${isScrolled ? 'shadow-md shadow-brand-navy/5' : ''}`}>
+    <header className={`sticky top-0 left-0 w-full bg-white z-50 transition-shadow duration-300 border-b border-slate-200/80 shadow-md ${isScrolled ? 'shadow-lg shadow-slate-900/10' : 'shadow-slate-900/8'}`}>
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6 flex items-center justify-between h-16 sm:h-[74px]">
         <a href="#home" className="flex items-center no-underline shrink-0" aria-label="RAM Construction Home">
           <Logo customLogoUrl={customLogoUrl} />
