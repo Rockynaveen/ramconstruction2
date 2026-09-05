@@ -13,7 +13,11 @@ interface ServiceItem {
   };
 }
 
-export const OurServices: React.FC = () => {
+interface OurServicesProps {
+  onSelectService?: (serviceId: string) => void;
+}
+
+export const OurServices: React.FC<OurServicesProps> = ({ onSelectService }) => {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -131,7 +135,13 @@ export const OurServices: React.FC = () => {
               className={`bg-transparent hover:bg-white p-5 sm:p-6 rounded-2xl border border-transparent hover:border-slate-200 shadow-none hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group cursor-pointer ${
                 isVisible ? `animate-service-fade-up ${staggerDelays[idx % staggerDelays.length]}` : 'opacity-0'
               }`}
-              onClick={() => setSelectedService(service)}
+              onClick={() => {
+                if (onSelectService) {
+                  onSelectService(service.id);
+                } else {
+                  setSelectedService(service);
+                }
+              }}
             >
               <div className="w-20 h-20 rounded-full group-hover:rounded-xl bg-brand-blue text-white flex items-center justify-center mb-5 shadow-md shadow-brand-blue/20 group-hover:bg-brand-navy group-hover:scale-[1.04] transition-all duration-300">
                 {service.icon}
@@ -155,7 +165,14 @@ export const OurServices: React.FC = () => {
               <button
                 type="button"
                 className="inline-flex items-center justify-center px-6 py-2.5 rounded-none bg-brand-blue hover:bg-brand-navy text-white text-xs font-bold tracking-wider uppercase transition-all duration-200 shadow-sm hover:shadow hover:-translate-y-0.5 cursor-pointer"
-                onClick={() => setSelectedService(service)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onSelectService) {
+                    onSelectService(service.id);
+                  } else {
+                    setSelectedService(service);
+                  }
+                }}
               >
                 KNOW MORE
               </button>

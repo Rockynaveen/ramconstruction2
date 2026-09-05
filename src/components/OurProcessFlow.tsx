@@ -70,20 +70,20 @@ export const OurProcessFlow: React.FC = () => {
         </div>
 
         {/* 6 Steps Horizontal Flow */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 justify-items-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 xs:gap-4 sm:gap-6 lg:gap-8 justify-items-center">
           {steps.map((item) => (
             <div
               key={item.step}
-              className="flex flex-col items-center text-center group cursor-pointer w-full max-w-[150px] sm:max-w-[170px]"
+              className="flex flex-col items-center text-center group cursor-pointer w-full max-w-[140px] sm:max-w-[170px]"
             >
               {/* Circular Icon Container with Number Badge */}
-              <div className="relative mb-3 sm:mb-4">
-                <div className="w-24 h-24 xs:w-28 xs:h-28 sm:w-32 sm:h-32 rounded-full bg-brand-light/80 border-2 border-white shadow-md group-hover:shadow-xl group-hover:scale-105 transition-all duration-300 flex items-center justify-center p-3">
+              <div className="relative mb-2.5 sm:mb-4">
+                <div className="w-20 h-20 xs:w-26 xs:h-26 sm:w-32 sm:h-32 rounded-full bg-brand-light/80 border-2 border-white shadow-md group-hover:shadow-xl group-hover:scale-105 transition-all duration-300 flex items-center justify-center p-2.5 xs:p-3">
                   {item.icon}
                 </div>
 
                 {/* Number Badge at Top-Right (matching logo theme) */}
-                <span className="absolute -top-1 -right-1 sm:top-0 sm:right-0 w-7 h-7 xs:w-8 xs:h-8 sm:w-9 sm:h-9 rounded-full bg-brand-blue group-hover:bg-brand-navy text-white text-xs sm:text-sm font-extrabold flex items-center justify-center shadow-md transition-colors duration-300">
+                <span className="absolute -top-1 -right-1 sm:top-0 sm:right-0 w-6 h-6 xs:w-8 xs:h-8 sm:w-9 sm:h-9 rounded-full bg-brand-blue group-hover:bg-brand-navy text-white text-[11px] xs:text-xs sm:text-sm font-extrabold flex items-center justify-center shadow-md transition-colors duration-300">
                   {item.step}
                 </span>
               </div>

@@ -1,38 +1,50 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { CheckCircle } from 'lucide-react';
 
+const heroCallbackSchema = z.object({
+  fullName: z.string().trim().min(2, 'Name is required'),
+  email: z.string().trim().email('Valid email is required'),
+  phone: z
+    .string()
+    .trim()
+    .min(10, 'Valid 10-digit phone required')
+    .regex(/^[0-9+\s()-]+$/, 'Valid phone number required'),
+  service: z.string().min(1, 'Please select a service'),
+  location: z.string().trim().min(2, 'Location is required'),
+});
+
+type HeroCallbackInputs = z.infer<typeof heroCallbackSchema>;
+
 export const Hero: React.FC = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    service: '',
-    location: '',
-  });
+  const [submittedData, setSubmittedData] = useState<HeroCallbackInputs | null>(null);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate instant response & confirmation
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 600);
-  };
-
-  const handleReset = () => {
-    setSubmitted(false);
-    setFormData({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<HeroCallbackInputs>({
+    resolver: zodResolver(heroCallbackSchema),
+    defaultValues: {
       fullName: '',
       email: '',
       phone: '',
       service: '',
       location: '',
-    });
+    },
+  });
+
+  const onSubmit = async (data: HeroCallbackInputs) => {
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    setSubmittedData(data);
+  };
+
+  const handleReset = () => {
+    setSubmittedData(null);
+    reset();
   };
 
   return (
@@ -98,12 +110,12 @@ export const Hero: React.FC = () => {
 
             {/* White Card Body */}
             <div className="bg-white shadow-[0_15px_40px_rgba(0,0,0,0.12)] border border-slate-100/90 px-3.5 xs:px-4 sm:px-5 pt-4 xs:pt-5 pb-5 xs:pb-6 relative z-0">
-              {submitted ? (
+              {submittedData ? (
                 <div className="py-5 sm:py-6 text-center flex flex-col items-center gap-2.5 sm:gap-3 text-slate-700">
                   <CheckCircle size={40} className="text-emerald-500 sm:w-11 sm:h-11" />
                   <h4 className="text-sm sm:text-base font-bold text-black">Message Sent!</h4>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    Thank you, <strong>{formData.fullName || 'Valued Client'}</strong>. Our senior construction advisor will call you shortly at {formData.phone || 'your number'}.
+                    Thank you, <strong>{submittedData.fullName}</strong>. Our senior construction advisor will call you shortly at {submittedData.phone}.
                   </p>
                   <button
                     type="button"
@@ -114,84 +126,106 @@ export const Hero: React.FC = () => {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 xs:gap-3 sm:gap-3.5">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 xs:gap-2.5" noValidate>
                   {/* Full Name */}
                   <div>
                     <input
                       type="text"
-                      name="fullName"
                       placeholder="Full Name"
-                      required
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full h-9 xs:h-10 px-3 xs:px-3.5 bg-white border border-slate-200/90 border-l-[4px] xs:border-l-[4.5px] border-l-black rounded-none text-xs sm:text-sm text-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-slate-400 focus:border-l-black shadow-xs transition-colors"
+                      {...register('fullName')}
+                      className={`w-full h-9 xs:h-10 px-3 xs:px-3.5 bg-white border border-l-[4px] xs:border-l-[4.5px] rounded-none text-xs sm:text-sm text-slate-800 placeholder:text-slate-500 focus:outline-none shadow-xs transition-colors ${
+                        errors.fullName
+                          ? 'border-red-500 border-l-red-500 focus:border-red-500'
+                          : 'border-slate-200/90 border-l-black focus:border-slate-400 focus:border-l-black'
+                      }`}
                     />
+                    {errors.fullName && (
+                      <p className="text-red-500 text-[10px] sm:text-[11px] mt-0.5 font-medium">{errors.fullName.message}</p>
+                    )}
                   </div>
 
                   {/* Email Address */}
                   <div>
                     <input
                       type="email"
-                      name="email"
                       placeholder="Email Address"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full h-9 xs:h-10 px-3 xs:px-3.5 bg-white border border-slate-200/90 border-l-[4px] xs:border-l-[4.5px] border-l-black rounded-none text-xs sm:text-sm text-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-slate-400 focus:border-l-black shadow-xs transition-colors"
+                      {...register('email')}
+                      className={`w-full h-9 xs:h-10 px-3 xs:px-3.5 bg-white border border-l-[4px] xs:border-l-[4.5px] rounded-none text-xs sm:text-sm text-slate-800 placeholder:text-slate-500 focus:outline-none shadow-xs transition-colors ${
+                        errors.email
+                          ? 'border-red-500 border-l-red-500 focus:border-red-500'
+                          : 'border-slate-200/90 border-l-black focus:border-slate-400 focus:border-l-black'
+                      }`}
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-[10px] sm:text-[11px] mt-0.5 font-medium">{errors.email.message}</p>
+                    )}
                   </div>
 
                   {/* Phone Number */}
                   <div>
                     <input
                       type="tel"
-                      name="phone"
                       placeholder="Phone Number"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full h-9 xs:h-10 px-3 xs:px-3.5 bg-white border border-slate-200/90 border-l-[4px] xs:border-l-[4.5px] border-l-black rounded-none text-xs sm:text-sm text-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-slate-400 focus:border-l-black shadow-xs transition-colors"
+                      {...register('phone')}
+                      className={`w-full h-9 xs:h-10 px-3 xs:px-3.5 bg-white border border-l-[4px] xs:border-l-[4.5px] rounded-none text-xs sm:text-sm text-slate-800 placeholder:text-slate-500 focus:outline-none shadow-xs transition-colors ${
+                        errors.phone
+                          ? 'border-red-500 border-l-red-500 focus:border-red-500'
+                          : 'border-slate-200/90 border-l-black focus:border-slate-400 focus:border-l-black'
+                      }`}
                     />
+                    {errors.phone && (
+                      <p className="text-red-500 text-[10px] sm:text-[11px] mt-0.5 font-medium">{errors.phone.message}</p>
+                    )}
                   </div>
 
                   {/* Select Service Dropdown */}
-                  <div className="relative">
-                    <select
-                      name="service"
-                      required
-                      value={formData.service}
-                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full h-9 xs:h-10 px-3 xs:px-3.5 bg-white border border-slate-200/90 border-l-[4px] xs:border-l-[4.5px] border-l-black rounded-none text-xs sm:text-sm text-slate-800 focus:outline-none focus:border-slate-400 focus:border-l-black shadow-xs transition-colors appearance-none cursor-pointer pr-8 xs:pr-9"
-                    >
-                      <option value="" disabled>Select Service</option>
-                      <option value="Residential Construction">Residential Construction</option>
-                      <option value="Commercial Construction">Commercial Construction</option>
-                      <option value="Architecture & Structural">Architecture & Structural</option>
-                      <option value="Interior Design Services">Interior Design Services</option>
-                      <option value="Villa Turnkey Project">Villa Turnkey Project</option>
-                    </select>
-                    <div className="absolute right-2.5 xs:right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-800">
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                      </svg>
+                  <div>
+                    <div className="relative">
+                      <select
+                        {...register('service')}
+                        className={`w-full h-9 xs:h-10 px-3 xs:px-3.5 bg-white border border-l-[4px] xs:border-l-[4.5px] rounded-none text-xs sm:text-sm text-slate-800 focus:outline-none shadow-xs transition-colors appearance-none cursor-pointer pr-8 xs:pr-9 ${
+                          errors.service
+                            ? 'border-red-500 border-l-red-500 focus:border-red-500'
+                            : 'border-slate-200/90 border-l-black focus:border-slate-400 focus:border-l-black'
+                        }`}
+                      >
+                        <option value="">Select Service</option>
+                        <option value="Residential Construction">Residential Construction</option>
+                        <option value="Commercial Construction">Commercial Construction</option>
+                        <option value="Architecture & Structural">Architecture &amp; Structural</option>
+                        <option value="Interior Design Services">Interior Design Services</option>
+                        <option value="Villa Turnkey Project">Villa Turnkey Project</option>
+                      </select>
+                      <div className="absolute right-2.5 xs:right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-800">
+                        <svg className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                      </div>
                     </div>
+                    {errors.service && (
+                      <p className="text-red-500 text-[10px] sm:text-[11px] mt-0.5 font-medium">{errors.service.message}</p>
+                    )}
                   </div>
 
                   {/* Location */}
                   <div>
                     <input
                       type="text"
-                      name="location"
                       placeholder="Location"
-                      required
-                      value={formData.location}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      className="w-full h-9 xs:h-10 px-3 xs:px-3.5 bg-white border border-slate-200/90 border-l-[4px] xs:border-l-[4.5px] border-l-black rounded-none text-xs sm:text-sm text-slate-800 placeholder:text-slate-500 focus:outline-none focus:border-slate-400 focus:border-l-black shadow-xs transition-colors"
+                      {...register('location')}
+                      className={`w-full h-9 xs:h-10 px-3 xs:px-3.5 bg-white border border-l-[4px] xs:border-l-[4.5px] rounded-none text-xs sm:text-sm text-slate-800 placeholder:text-slate-500 focus:outline-none shadow-xs transition-colors ${
+                        errors.location
+                          ? 'border-red-500 border-l-red-500 focus:border-red-500'
+                          : 'border-slate-200/90 border-l-black focus:border-slate-400 focus:border-l-black'
+                      }`}
                     />
+                    {errors.location && (
+                      <p className="text-red-500 text-[10px] sm:text-[11px] mt-0.5 font-medium">{errors.location.message}</p>
+                    )}
                   </div>
 
                   {/* SEND MESSAGE Button in Brand Blue */}
-                  <div className="flex justify-center mt-1.5 xs:mt-2 pt-0.5 xs:pt-1">
+                  <div className="flex justify-center mt-1 xs:mt-1.5 pt-0.5">
                     <button
                       type="submit"
                       disabled={isSubmitting}

@@ -3,14 +3,26 @@ import { MapPin, Phone, Mail } from 'lucide-react';
 
 interface FooterProps {
   customLogoUrl?: string;
+  onNavigate?: (page: 'home' | 'about' | 'services' | 'projects' | 'contact', targetSection?: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ customLogoUrl }) => {
+export const Footer: React.FC<FooterProps> = ({ customLogoUrl, onNavigate }) => {
   const logoSrc = customLogoUrl || '/ram-logo.png';
+
+  const handleLink = (
+    e: React.MouseEvent,
+    page: 'home' | 'about' | 'services' | 'projects' | 'contact',
+    target?: string
+  ) => {
+    if (onNavigate) {
+      e.preventDefault();
+      onNavigate(page, target);
+    }
+  };
 
   return (
     <footer
-      id="contact"
+      id="contact-footer"
       className="relative text-slate-300 border-t border-slate-800/80 overflow-hidden"
       style={{
         backgroundImage: 'linear-gradient(rgba(17, 19, 23, 0.92), rgba(17, 19, 23, 0.94)), url("/footer-bg.jpg")',
@@ -44,7 +56,7 @@ export const Footer: React.FC<FooterProps> = ({ customLogoUrl }) => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 border border-white/40 hover:border-[#e69500] hover:text-[#e69500] text-white flex items-center justify-center rounded transition-colors"
+                className="w-8 h-8 border border-white/40 hover:border-brand-accent hover:text-brand-accent text-white flex items-center justify-center rounded transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -55,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({ customLogoUrl }) => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 border border-white/40 hover:border-[#e69500] hover:text-[#e69500] text-white flex items-center justify-center rounded transition-colors"
+                className="w-8 h-8 border border-white/40 hover:border-brand-accent hover:text-brand-accent text-white flex items-center justify-center rounded transition-colors"
                 aria-label="Twitter"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -66,7 +78,7 @@ export const Footer: React.FC<FooterProps> = ({ customLogoUrl }) => {
                 href="https://youtube.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 border border-white/40 hover:border-[#e69500] hover:text-[#e69500] text-white flex items-center justify-center rounded transition-colors"
+                className="w-8 h-8 border border-white/40 hover:border-brand-accent hover:text-brand-accent text-white flex items-center justify-center rounded transition-colors"
                 aria-label="YouTube"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -77,7 +89,7 @@ export const Footer: React.FC<FooterProps> = ({ customLogoUrl }) => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 border border-white/40 hover:border-[#e69500] hover:text-[#e69500] text-white flex items-center justify-center rounded transition-colors"
+                className="w-8 h-8 border border-white/40 hover:border-brand-accent hover:text-brand-accent text-white flex items-center justify-center rounded transition-colors"
                 aria-label="Instagram"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -89,27 +101,43 @@ export const Footer: React.FC<FooterProps> = ({ customLogoUrl }) => {
 
           {/* Column 2: Our Services */}
           <div>
-            <h3 className="text-[#e69500] font-bold text-sm sm:text-[15px] uppercase tracking-wider mb-5">
+            <h3 className="text-brand-accent font-bold text-sm sm:text-[15px] uppercase tracking-wider mb-5">
               OUR SERVICES
             </h3>
             <ul className="space-y-2.5 list-none p-0 m-0">
               <li>
-                <a href="#services" className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block">
+                <a
+                  href="#services"
+                  onClick={(e) => handleLink(e, 'services', 'residential')}
+                  className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block"
+                >
                   Residential Construction
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block">
+                <a
+                  href="#services"
+                  onClick={(e) => handleLink(e, 'services', 'commercial')}
+                  className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block"
+                >
                   Commercial Construction
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block">
+                <a
+                  href="#services"
+                  onClick={(e) => handleLink(e, 'services', 'architecture')}
+                  className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block"
+                >
                   Architecture &amp; Structural
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block">
+                <a
+                  href="#services"
+                  onClick={(e) => handleLink(e, 'services', 'interior')}
+                  className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block"
+                >
                   Interior Design Services
                 </a>
               </li>
@@ -118,27 +146,52 @@ export const Footer: React.FC<FooterProps> = ({ customLogoUrl }) => {
 
           {/* Column 3: Site Link */}
           <div>
-            <h3 className="text-[#e69500] font-bold text-sm sm:text-[15px] uppercase tracking-wider mb-5">
+            <h3 className="text-brand-accent font-bold text-sm sm:text-[15px] uppercase tracking-wider mb-5">
               SITE LINK
             </h3>
             <ul className="space-y-2 list-none p-0 m-0">
               <li>
-                <a href="#home" className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block">
+                <a
+                  href="#home"
+                  onClick={(e) => handleLink(e, 'home', 'home')}
+                  className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block"
+                >
                   Home
                 </a>
               </li>
               <li>
-                <a href="#about" className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block">
+                <a
+                  href="#about"
+                  onClick={(e) => handleLink(e, 'about')}
+                  className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block"
+                >
                   About
                 </a>
               </li>
               <li>
-                <a href="#services" className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block">
+                <a
+                  href="#services"
+                  onClick={(e) => handleLink(e, 'services')}
+                  className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block"
+                >
                   Our Services
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block">
+                <a
+                  href="#projects"
+                  onClick={(e) => handleLink(e, 'projects', 'all')}
+                  className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block"
+                >
+                  Projects
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  onClick={(e) => handleLink(e, 'contact')}
+                  className="text-[13px] sm:text-[13.5px] text-slate-300 hover:text-white transition-colors block"
+                >
                   Contact Us
                 </a>
               </li>
@@ -157,7 +210,7 @@ export const Footer: React.FC<FooterProps> = ({ customLogoUrl }) => {
 
           {/* Column 4: Contact Us */}
           <div>
-            <h3 className="text-[#e69500] font-bold text-sm sm:text-[15px] uppercase tracking-wider mb-5">
+            <h3 className="text-brand-accent font-bold text-sm sm:text-[15px] uppercase tracking-wider mb-5">
               CONTACT US
             </h3>
             <ul className="space-y-4 list-none p-0 m-0 text-[13px] sm:text-[13.5px]">
@@ -171,7 +224,7 @@ export const Footer: React.FC<FooterProps> = ({ customLogoUrl }) => {
                 <Phone size={18} className="text-white shrink-0" />
                 <span>
                   Telephone :{' '}
-                  <a href="tel:+919885553600" className="hover:text-[#e69500] transition-colors">
+                  <a href="tel:+919885553600" className="hover:text-brand-accent transition-colors">
                     +91-98855 53600
                   </a>
                 </span>
@@ -180,7 +233,7 @@ export const Footer: React.FC<FooterProps> = ({ customLogoUrl }) => {
                 <Mail size={18} className="text-white shrink-0" />
                 <span>
                   Email :{' '}
-                  <a href="mailto:info@ramconstruction.in" className="hover:text-[#e69500] transition-colors">
+                  <a href="mailto:info@ramconstruction.in" className="hover:text-brand-accent transition-colors">
                     info@ramconstruction.in
                   </a>
                 </span>

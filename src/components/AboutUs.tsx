@@ -29,12 +29,12 @@ export const AboutUs: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-24 xl:gap-32 items-start">
         {/* Left Visual Composition - Overlapping Golden-Bordered Photos flowing from left to right */}
         <div
-          className={`relative w-fit mx-auto lg:mx-0 pt-1 shrink-0 ${
+          className={`relative w-fit max-w-full mx-auto lg:mx-0 pt-1 shrink-0 ${
             isVisible ? 'animate-flow-left-to-right' : 'opacity-0'
           }`}
         >
           {/* Top-Left Photo: Couple looking at blueprint */}
-          <div className="w-40 xs:w-48 sm:w-56 h-52 xs:h-60 sm:h-68 rounded-2xl border-[3.5px] border-brand-navy overflow-hidden shadow-md bg-white relative z-0">
+          <div className="w-36 xs:w-48 sm:w-56 h-48 xs:h-60 sm:h-68 rounded-2xl border-[3.5px] border-brand-navy overflow-hidden shadow-md bg-white relative z-0">
             <img
               src="/about-couple.jpg"
               alt="Engineers and homeowners reviewing architectural plans"
@@ -44,7 +44,7 @@ export const AboutUs: React.FC = () => {
           </div>
 
           {/* Bottom-Right Photo: Touching the bottom-right corner of top photo */}
-          <div className="w-36 xs:w-44 sm:w-52 h-48 xs:h-56 sm:h-64 rounded-2xl border-[3.5px] border-brand-navy overflow-hidden shadow-xl bg-white -mt-6 sm:-mt-8 ml-20 xs:ml-28 sm:ml-36 relative z-10">
+          <div className="w-32 xs:w-44 sm:w-52 h-44 xs:h-56 sm:h-64 rounded-2xl border-[3.5px] border-brand-navy overflow-hidden shadow-xl bg-white -mt-6 sm:-mt-8 ml-14 xs:ml-24 sm:ml-36 relative z-10">
             <img
               src="/about-keys.jpg"
               alt="Hands holding keys and miniature house model"
