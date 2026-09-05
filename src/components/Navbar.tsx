@@ -49,7 +49,8 @@ export const Navbar: React.FC<NavbarProps> = ({ customLogoUrl }) => {
   };
 
   return (
-    <header className={`sticky top-0 left-0 w-full bg-white z-50 transition-shadow duration-300 border-b border-slate-200/80 shadow-md ${isScrolled ? 'shadow-lg shadow-slate-900/10' : 'shadow-slate-900/8'}`}>
+    <>
+      <header className={`fixed top-0 left-0 right-0 w-full bg-white z-50 transition-shadow duration-300 border-b border-slate-200/80 shadow-md ${isScrolled ? 'shadow-lg shadow-slate-900/10' : 'shadow-slate-900/8'}`}>
       <div className="max-w-7xl mx-auto px-3.5 sm:px-6 flex items-center justify-between h-16 sm:h-[74px]">
         <a href="#home" className="flex items-center no-underline shrink-0" aria-label="RAM Construction Home">
           <Logo customLogoUrl={customLogoUrl} />
@@ -137,6 +138,9 @@ export const Navbar: React.FC<NavbarProps> = ({ customLogoUrl }) => {
         </div>
       </div>
     </header>
+    {/* Spacer to prevent layout overlap when header is fixed */}
+    <div className="h-16 sm:h-[74px] w-full shrink-0" aria-hidden="true" />
+  </>
   );
 };
 

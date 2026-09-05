@@ -38,12 +38,18 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative bg-white overflow-hidden border-b border-slate-200 min-h-[calc(100dvh-64px)] sm:min-h-[calc(100vh-74px)] lg:min-h-[calc(100vh-74px)] flex items-center py-6 xs:py-8 sm:py-12 lg:py-8"
+      className="relative bg-white overflow-hidden border-b border-slate-200 min-h-[calc(100dvh-64px)] sm:min-h-[calc(100vh-74px)] lg:min-h-[calc(100vh-74px)] flex items-center py-4 xs:py-5 sm:py-6 lg:py-4 mt-0.5 sm:mt-1"
     >
-      {/* Complete Hero Section Backdrop using hero image 2.jpeg on desktop/large tablet */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/hero%20image%202.jpeg')] bg-cover bg-center bg-no-repeat opacity-20 sm:opacity-40 lg:opacity-100" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/95 lg:from-white/75 lg:via-transparent lg:to-white/75" />
+      {/* Complete Hero Section Backdrop using hero image 2.jpeg with zero cropping */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
+        <div className="relative w-full h-full max-w-[1920px] mx-auto flex items-center justify-center">
+          <img
+            src="/hero%20image%202.jpeg"
+            alt="RAM Construction - We Build Your Dream Home"
+            className="w-full h-full object-contain object-center opacity-25 sm:opacity-40 lg:opacity-100 select-none pointer-events-none"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-white/95 lg:from-white/75 lg:via-transparent lg:to-white/75 pointer-events-none" />
+        </div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-3.5 xs:px-4 sm:px-6 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.05fr_1.35fr_1fr] items-center gap-6 sm:gap-8 lg:gap-6">
@@ -64,11 +70,11 @@ export const Hero: React.FC = () => {
 
         {/* Center Focal Showcase Area - couple illustration shown on mobile, hidden on tablet 2-col to avoid squishing, shines through from backdrop on desktop */}
         <div className="flex md:hidden lg:flex justify-center items-center relative z-10 lg:min-h-[380px] w-full">
-          <div className="w-full max-w-[240px] xs:max-w-[280px] sm:max-w-sm lg:hidden my-1 xs:my-2">
+          <div className="w-full max-w-[260px] xs:max-w-[300px] sm:max-w-md lg:hidden my-0.5 xs:my-1">
             <img
               src="/hero%20image%202.jpeg"
               alt="RAM Construction - We Build Your Dream Home"
-              className="w-full h-auto max-h-52 xs:max-h-64 sm:max-h-80 object-contain mx-auto mix-blend-multiply rounded-xl"
+              className="w-full h-auto max-h-60 xs:max-h-72 sm:max-h-84 object-contain mx-auto mix-blend-multiply rounded-xl"
               loading="eager"
             />
           </div>
