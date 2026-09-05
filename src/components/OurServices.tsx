@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Home, Building2, Compass, Palette, X, ArrowRight } from 'lucide-react';
 
 interface ServiceItem {
@@ -15,13 +15,38 @@ interface ServiceItem {
 
 export const OurServices: React.FC = () => {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Allows reveal animation to play again when scrolling into view
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const staggerDelays = [
+    'service-delay-0',
+    'service-delay-100',
+    'service-delay-200',
+    'service-delay-300',
+  ];
 
   const services: ServiceItem[] = [
     {
       id: 'residential',
       title: 'Residential Construction',
       desc: 'Expertise in custom villas, modern apartments, and dream homes built with premium materials and quality craftsmanship.',
-      icon: <Home size={42} strokeWidth={1.8} />,
+      icon: <Home size={42} strokeWidth={1.8} className="text-white" />,
       details: {
         overview: 'Complete turnkey home building solutions from foundation excavation to final painting and fittings.',
         deliverables: [
@@ -37,7 +62,7 @@ export const OurServices: React.FC = () => {
       id: 'commercial',
       title: 'Commercial Construction',
       desc: 'Expertise in commercial spaces for offices, retail, and industrial buildings with modern design and quality craftsmanship.',
-      icon: <Building2 size={42} strokeWidth={1.8} />,
+      icon: <Building2 size={42} strokeWidth={1.8} className="text-white" />,
       details: {
         overview: 'Heavy-duty, functional, and aesthetically commanding spaces designed for optimal business operations and maximum floor efficiency.',
         deliverables: [
@@ -53,7 +78,7 @@ export const OurServices: React.FC = () => {
       id: 'architecture',
       title: 'Architecture & Structural',
       desc: 'Expertise in Vastu-compliant architectural planning, 3D elevations, and certified structural engineering for long-lasting stability.',
-      icon: <Compass size={42} strokeWidth={1.8} />,
+      icon: <Compass size={42} strokeWidth={1.8} className="text-white" />,
       details: {
         overview: 'Creative blueprint drafting and precision structural analysis designed to maximize natural light, ventilation, and space utilization.',
         deliverables: [
@@ -69,7 +94,7 @@ export const OurServices: React.FC = () => {
       id: 'interior',
       title: 'Interior Design Services',
       desc: 'Expertise in bespoke luxury interiors, custom modular kitchens, and smart lighting solutions tailored to your unique lifestyle.',
-      icon: <Palette size={42} strokeWidth={1.8} />,
+      icon: <Palette size={42} strokeWidth={1.8} className="text-white" />,
       details: {
         overview: 'Bespoke modular kitchens, false ceilings, luxury wardrobes, and mood lighting designed for contemporary living.',
         deliverables: [
@@ -78,37 +103,40 @@ export const OurServices: React.FC = () => {
           'Italian marble / designer tiles flooring accents',
           'Full-room space optimization & custom cabinetry'
         ],
-        priceHint: 'Tailored to budget with complete material transparency'
+        priceHint: 'Custom packages from premium veneers to Italian finishes'
       }
     }
   ];
 
   return (
-    <section id="services" className="py-12 bg-slate-50/50 border-b border-slate-100">
+    <section ref={sectionRef} id="services" className="py-12 bg-slate-50/50 border-b border-slate-100 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
           <h2
-            className="font-outfit text-[30px] font-normal text-brand-navy uppercase mb-3 tracking-tight pb-[5px]"
+            className="font-outfit text-[30px] font-normal text-black uppercase mb-2 pb-[5px]"
             style={{ fontSize: '30px', fontWeight: 400, paddingBottom: '5px' }}
           >
             OUR SERVICES
           </h2>
+          <div className="w-14 h-1 bg-brand-blue mx-auto rounded-full mb-4" />
           <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto">
             We provide end-to-end construction and design solutions tailored to your needs.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service) => (
+          {services.map((service, idx) => (
             <div
               key={service.id}
-              className="bg-transparent hover:bg-white p-5 sm:p-6 rounded-2xl border border-transparent hover:border-slate-200 shadow-none hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group hover:-translate-y-1.5 cursor-pointer"
+              className={`bg-transparent hover:bg-white p-5 sm:p-6 rounded-2xl border border-transparent hover:border-slate-200 shadow-none hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group cursor-pointer ${
+                isVisible ? `animate-service-fade-up ${staggerDelays[idx % staggerDelays.length]}` : 'opacity-0'
+              }`}
               onClick={() => setSelectedService(service)}
             >
-              <div className="w-20 h-20 rounded-full group-hover:rounded-xl bg-brand-light text-brand-blue flex items-center justify-center mb-5 group-hover:bg-brand-blue group-hover:text-white transition-all duration-300">
+              <div className="w-20 h-20 rounded-full group-hover:rounded-xl bg-brand-blue text-white flex items-center justify-center mb-5 shadow-md shadow-brand-blue/20 group-hover:bg-brand-navy group-hover:scale-[1.04] transition-all duration-300">
                 {service.icon}
               </div>
-              <h3 className="font-outfit text-lg font-bold text-brand-navy mb-3 group-hover:text-brand-blue transition-colors">
+              <h3 className="font-outfit text-lg font-bold text-black mb-3 group-hover:text-brand-blue transition-colors">
                 {service.title}
               </h3>
               <p
@@ -144,15 +172,15 @@ export const OurServices: React.FC = () => {
               <X size={24} />
             </button>
             <div className="mb-5 flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-2xl bg-brand-light text-brand-blue flex items-center justify-center mb-3">
+              <div className="w-16 h-16 rounded-2xl bg-brand-blue text-white flex items-center justify-center mb-3 shadow-md shadow-brand-blue/20">
                 {selectedService.icon}
               </div>
-              <h3 className="font-outfit text-2xl font-extrabold text-brand-navy mb-1">{selectedService.title}</h3>
+              <h3 className="font-outfit text-2xl font-extrabold text-black mb-1">{selectedService.title}</h3>
               <p className="text-xs text-slate-500">{selectedService.desc}</p>
             </div>
             <div className="text-slate-700 text-sm leading-relaxed">
               <p className="mb-4 bg-slate-50 p-3.5 rounded-xl text-slate-600 text-xs leading-relaxed">{selectedService.details.overview}</p>
-              <h4 className="font-bold text-brand-navy text-sm mb-3">What We Deliver:</h4>
+              <h4 className="font-bold text-black text-sm mb-3">What We Deliver:</h4>
               <ul className="space-y-2.5 my-3 list-none p-0">
                 {selectedService.details.deliverables.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
@@ -165,13 +193,13 @@ export const OurServices: React.FC = () => {
                 <strong>Budget Estimate:</strong> {selectedService.details.priceHint}
               </div>
               <div className="mt-5">
-                <a
-                  href="#contact"
-                  className="block w-full text-center bg-brand-blue hover:bg-brand-navy text-white py-3 rounded-lg text-xs font-bold transition-colors"
+                <button
+                  type="button"
+                  className="block w-full text-center bg-brand-blue hover:bg-brand-navy text-white py-3 rounded-lg text-xs font-bold transition-colors cursor-pointer"
                   onClick={() => setSelectedService(null)}
                 >
                   Inquire For This Service
-                </a>
+                </button>
               </div>
             </div>
           </div>

@@ -17,36 +17,36 @@ export const OurProjects: React.FC = () => {
       id: 'p1',
       location: 'Chaitanyapuri',
       area: '7200sft',
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&auto=format&fit=crop&q=80',
-      description: 'Stately multi-storey contemporary residential villa with wood-textured paneling, balcony planters, and secure ground-level covered parking.'
+      image: '/home%201.jfif',
+      description: 'Custom heritage villa featuring handcrafted timber veranda columns, traditional Mangalore terracotta roof tiling, arched windows, and lush exterior greenery.'
     },
     {
       id: 'p2',
       location: 'Nagole',
-      area: '3240sft',
-      image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1000&auto=format&fit=crop&q=80',
-      description: 'Elegant vertical urban residence with recessed terrace decks, stone cladding facade accents, and bespoke architectural exterior illumination.'
+      area: '8450sft',
+      image: '/home%202.jfif',
+      description: 'Ultra-luxury contemporary resort-style villa featuring an infinity swimming pool, expansive travertine sundeck, natural stone masonry, and landscaped green terrace roofs.'
     },
     {
       id: 'p3',
       location: 'Rajendranagar',
-      area: '12740sft',
-      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1000&auto=format&fit=crop&q=80',
-      description: 'Magnificent multi-level residential tower with warm architectural wooden louvers, glass perimeter balconies, and landscaped entrance approach.'
+      area: '1850sft',
+      image: '/home%203.jfif',
+      description: 'Contemporary luxury 2BHK residence with open-concept designer living, premium island kitchen, floor-to-ceiling balcony glazing, and customized architectural floor plan.'
     },
     {
       id: 'p4',
       location: 'Nagole',
-      area: '3700sft',
-      image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1000&auto=format&fit=crop&q=80',
-      description: 'Modern luxury duplex home with cantilevered balconies, contrasting exterior textures, integrated security gate, and paved vehicular entryway.'
+      area: '9600sft',
+      image: '/home%204.jfif',
+      description: 'Modern multi-suite corporate commercial complex featuring exposed charcoal brick masonry, warm timber panel accents, energy-efficient glazing, and dedicated customer parking.'
     },
     {
       id: 'p5',
       location: 'Jagtial',
       area: '2650sft',
-      image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1000&auto=format&fit=crop&q=80',
-      description: 'Spacious independent contemporary residence featuring ribbed vertical facade slats, decorative parapet roof deck, and landscaped yard.'
+      image: '/home%205.jpg',
+      description: 'Independent two-storey residential house featuring sheltered ground-floor car portico, ornamental first-floor sit-out balcony, external open staircase, and rooftop garden deck.'
     },
     {
       id: 'p6',
@@ -63,10 +63,10 @@ export const OurProjects: React.FC = () => {
         {/* Section Header */}
         <div className="text-center mb-8">
           <h2
-            className="font-outfit uppercase tracking-tight text-brand-navy"
+            className="font-outfit uppercase tracking-tight text-black"
             style={{ fontSize: '30px', fontWeight: 400, paddingBottom: '5px' }}
           >
-            LIVNEXT PORTFOLIO
+            RAM CONSTRUCTION PORTFOLIO
           </h2>
           {/* Accent bar in brand blue */}
           <div className="w-14 h-1 bg-brand-blue mx-auto rounded-full mt-1 mb-4" />
@@ -82,7 +82,7 @@ export const OurProjects: React.FC = () => {
               lineHeight: '24px'
             }}
           >
-            At Livnext, we specialize in crafting exceptional homes and delivering top-tier construction solutions.
+            At RAM Construction, we specialize in crafting exceptional homes and delivering top-tier construction solutions.
             <br className="hidden sm:inline" />
             {' '}Recognized as Hyderabad's most renowned quality construction company, we take
             <br className="hidden sm:inline" />
@@ -137,7 +137,7 @@ export const OurProjects: React.FC = () => {
       {/* Project Lightbox Preview Modal */}
       {activeProject && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4"
           onClick={() => setActiveProject(null)}
         >
           <div
@@ -145,19 +145,19 @@ export const OurProjects: React.FC = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              className="absolute top-4 right-4 z-10 bg-black/60 text-white hover:bg-black p-2 rounded-full cursor-pointer transition-colors"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 bg-black/60 text-white hover:bg-black p-2 rounded-full cursor-pointer transition-colors"
               onClick={() => setActiveProject(null)}
               aria-label="Close dialog"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
-            <div className="relative aspect-[4/3] w-full bg-slate-100">
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full bg-slate-100">
               <img
                 src={activeProject.image}
                 alt={activeProject.location}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute bottom-4 left-4 bg-brand-navy/90 backdrop-blur-sm text-white px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-md">
+              <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-brand-navy/90 backdrop-blur-sm text-white px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-md">
                 <svg
                   className="w-4 h-4 text-[#e69500] fill-[#e69500]"
                   viewBox="0 0 24 24"
@@ -168,8 +168,8 @@ export const OurProjects: React.FC = () => {
                 {activeProject.area}
               </div>
             </div>
-            <div className="p-6 sm:p-8">
-              <h3 className="font-outfit text-2xl font-bold text-brand-navy mb-1.5">
+            <div className="p-5 sm:p-8">
+              <h3 className="font-outfit text-xl sm:text-2xl font-bold text-black mb-1.5">
                 {activeProject.location} Project
               </h3>
               <p className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 mb-4">
@@ -188,13 +188,13 @@ export const OurProjects: React.FC = () => {
                 {activeProject.description}
               </p>
               <div>
-                <a
-                  href="#contact"
-                  className="block w-full text-center bg-brand-navy hover:bg-brand-blue text-white py-3.5 rounded-xl text-xs font-bold tracking-wider transition-colors shadow-md uppercase"
+                <button
+                  type="button"
+                  className="block w-full text-center bg-brand-navy hover:bg-brand-blue text-white py-3.5 rounded-xl text-xs font-bold tracking-wider transition-colors shadow-md uppercase cursor-pointer"
                   onClick={() => setActiveProject(null)}
                 >
                   Request Consultation For This Design
-                </a>
+                </button>
               </div>
             </div>
           </div>

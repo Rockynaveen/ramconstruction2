@@ -45,7 +45,7 @@ export const BlogsAndFAQ: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="font-outfit text-3xl sm:text-4xl font-extrabold text-brand-navy uppercase tracking-tight mb-2">
+          <h2 className="font-outfit text-3xl sm:text-4xl font-extrabold text-black uppercase tracking-tight mb-2">
             LATEST BLOGS
           </h2>
           <div className="w-14 h-1 bg-brand-blue mx-auto rounded-full mb-4" />
@@ -77,7 +77,7 @@ export const BlogsAndFAQ: React.FC = () => {
 
               <div className="p-6 flex flex-col justify-between flex-1">
                 <div>
-                  <h3 className="font-outfit text-lg font-bold text-brand-navy group-hover:text-brand-blue transition-colors mb-3 line-clamp-2 leading-snug">
+                  <h3 className="font-outfit text-lg font-bold text-black group-hover:text-brand-blue transition-colors mb-3 line-clamp-2 leading-snug">
                     {blog.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-500 leading-relaxed mb-6 line-clamp-3">
@@ -116,19 +116,19 @@ export const BlogsAndFAQ: React.FC = () => {
               </div>
             </div>
             <div className="p-6 sm:p-8">
-              <h3 className="font-outfit text-2xl font-extrabold text-brand-navy mb-4">{activeBlog.title}</h3>
+              <h3 className="font-outfit text-2xl font-extrabold text-black mb-4">{activeBlog.title}</h3>
               <p className="text-sm text-slate-600 leading-relaxed mb-4">{activeBlog.summary}</p>
               <p className="text-sm text-slate-600 leading-relaxed mb-6">
                 When embarking on any construction endeavor, having an experienced partner who prioritizes structural integrity, code compliance, and budgetary discipline is paramount. RAM Construction is committed to keeping every homeowner and commercial developer informed and confident at every phase.
               </p>
               <div>
-                <a
-                  href="#contact"
-                  className="block w-full text-center bg-brand-navy hover:bg-brand-blue text-white py-3.5 rounded-xl text-xs font-bold tracking-wider transition-colors shadow-md"
+                <button
+                  type="button"
+                  className="block w-full text-center bg-brand-navy hover:bg-brand-blue text-white py-3.5 rounded-xl text-xs font-bold tracking-wider transition-colors shadow-md cursor-pointer"
                   onClick={() => setActiveBlog(null)}
                 >
                   Consult Our Experts
-                </a>
+                </button>
               </div>
             </div>
           </div>

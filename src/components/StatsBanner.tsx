@@ -166,20 +166,20 @@ export const StatsBanner: React.FC = () => {
           {stats.map((stat) => (
             <div
               key={stat.id}
-              className="w-full max-w-[190px] bg-transparent border-t-2 border-l-2 border-white border-b-2 border-r-2 border-brand-accent hover:border-brand-blue transition-all duration-300 py-4 px-2 sm:py-5 sm:px-3 flex flex-col items-center justify-between text-center group hover:-translate-y-1"
+              className="w-full max-w-[160px] xs:max-w-[175px] sm:max-w-[190px] last:col-span-2 md:last:col-span-1 bg-transparent border-t-2 border-l-2 border-white border-b-2 border-r-2 border-brand-accent hover:border-brand-blue transition-all duration-300 py-3.5 px-2 sm:py-5 sm:px-3 flex flex-col items-center justify-between text-center group hover:-translate-y-1"
             >
               {/* White Outline Icon at Top */}
-              <div className="flex items-center justify-center mb-2 sm:mb-2.5 group-hover:scale-105 transition-transform">
+              <div className="flex items-center justify-center mb-1.5 sm:mb-2.5 group-hover:scale-105 transition-transform">
                 {stat.icon}
               </div>
 
               {/* Animated Counting Value */}
-              <div className="font-outfit text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-brand-accent tracking-tight leading-none mb-1.5 sm:mb-2">
+              <div className="font-outfit text-xl xs:text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-brand-accent tracking-tight leading-none mb-1 sm:mb-2">
                 <CountUp end={stat.target} suffix={stat.suffix} duration={2200} />
               </div>
 
               {/* Label at Bottom */}
-              <div className="font-outfit text-[11px] sm:text-xs font-bold text-white tracking-wide uppercase leading-tight">
+              <div className="font-outfit text-[10px] xs:text-[11px] sm:text-xs font-bold text-white tracking-wide uppercase leading-tight">
                 {stat.label}
               </div>
             </div>

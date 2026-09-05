@@ -50,19 +50,19 @@ export const Navbar: React.FC<NavbarProps> = ({ customLogoUrl }) => {
 
   return (
     <header className={`sticky top-0 left-0 w-full bg-white z-50 transition-all duration-300 border-b border-slate-100 ${isScrolled ? 'shadow-md shadow-brand-navy/5' : ''}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-[74px]">
-        <a href="#home" className="flex items-center no-underline" aria-label="RAM Construction Home">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 flex items-center justify-between h-16 sm:h-[74px]">
+        <a href="#home" className="flex items-center no-underline shrink-0" aria-label="RAM Construction Home">
           <Logo customLogoUrl={customLogoUrl} />
         </a>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center" aria-label="Main Navigation">
-          <ul className="flex items-center list-none gap-8 m-0 p-0">
+          <ul className="flex items-center list-none gap-4 lg:gap-8 m-0 p-0">
             {navItems.map((item) => (
               <li key={item.id} className="relative">
                 <a
                   href={item.href}
-                  className={`relative text-[13.5px] font-bold tracking-wider py-2 transition-colors duration-200 flex flex-col items-center ${activeSection === item.id ? 'text-brand-blue' : 'text-slate-700 hover:text-brand-blue'}`}
+                  className={`relative text-[13px] lg:text-[13.5px] font-bold tracking-wider py-2 px-1 transition-colors duration-200 flex flex-col items-center ${activeSection === item.id ? 'text-brand-blue' : 'text-slate-700 hover:text-brand-blue'}`}
                   onClick={() => handleNavClick(item.id)}
                 >
                   {item.label}
@@ -76,28 +76,52 @@ export const Navbar: React.FC<NavbarProps> = ({ customLogoUrl }) => {
         </nav>
 
         {/* Mobile menu trigger */}
-        <div className="flex md:hidden items-center gap-3">
-          <a href="tel:+919885553600" className="bg-brand-light text-brand-blue p-2 rounded-lg transition-colors" title="Call Us">
+        <div className="flex md:hidden items-center gap-2 sm:gap-3">
+          <a
+            href="tel:+919885553600"
+            className="w-10 h-10 bg-brand-light text-brand-blue rounded-lg transition-colors flex items-center justify-center cursor-pointer"
+            title="Call Us"
+            aria-label="Call +91 98855 53600"
+          >
             <PhoneCall size={18} />
           </a>
           <button
-            className="text-brand-navy p-1 focus:outline-none cursor-pointer"
+            type="button"
+            className="w-10 h-10 text-brand-navy rounded-lg focus:outline-none flex items-center justify-center cursor-pointer hover:bg-slate-100 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation menu"
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
+      {/* Mobile Drawer Overlay Backdrop */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 top-16 sm:top-[74px] bg-black/40 z-40 md:hidden animate-fade-in backdrop-blur-xs"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Mobile Menu Drawer */}
-      <div className={`${mobileMenuOpen ? 'block' : 'hidden'} md:hidden bg-white border-t border-slate-100 px-6 py-5 shadow-xl`}>
-        <ul className="flex flex-col gap-4 list-none m-0 p-0">
+      <div
+        className={`${
+          mobileMenuOpen ? 'block' : 'hidden'
+        } md:hidden relative z-50 bg-white border-t border-slate-100 px-5 sm:px-6 py-5 shadow-2xl max-h-[calc(100dvh-4rem)] sm:max-h-[calc(100dvh-[74px])] overflow-y-auto`}
+      >
+        <ul className="flex flex-col gap-3.5 list-none m-0 p-0">
           {navItems.map((item) => (
             <li key={item.id}>
               <a
                 href={item.href}
-                className={`text-[15px] font-bold block py-1.5 transition-colors ${activeSection === item.id ? 'text-brand-blue' : 'text-slate-800'}`}
+                className={`text-[15px] font-bold block py-2 px-3 rounded-lg transition-colors ${
+                  activeSection === item.id
+                    ? 'text-brand-blue bg-brand-light/60'
+                    : 'text-slate-800 hover:bg-slate-50'
+                }`}
                 onClick={() => handleNavClick(item.id)}
               >
                 {item.label}
@@ -106,7 +130,7 @@ export const Navbar: React.FC<NavbarProps> = ({ customLogoUrl }) => {
           ))}
         </ul>
         <div className="mt-5 pt-4 border-t border-slate-200 text-sm text-slate-500">
-          <p>Direct Inquiries & Call Backs:</p>
+          <p className="text-xs text-slate-500 m-0">Direct Inquiries & Call Backs:</p>
           <a href="tel:+919885553600" className="text-lg font-extrabold text-brand-blue block mt-1">
             +91 98855 53600
           </a>

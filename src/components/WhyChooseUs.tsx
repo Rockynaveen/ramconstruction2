@@ -90,7 +90,7 @@ export const WhyChooseUs: React.FC = () => {
         {/* Section Header with Logo Theme Accent */}
         <div className="text-center mb-12 sm:mb-16">
           <h2
-            className="font-outfit text-[30px] font-normal text-brand-navy uppercase tracking-tight mb-2 pb-[5px]"
+            className="font-outfit text-[30px] font-normal text-black uppercase tracking-tight mb-2 pb-[5px]"
             style={{ fontSize: '30px', fontWeight: 400, paddingBottom: '5px' }}
           >
             WHY CHOOSE US
@@ -103,32 +103,31 @@ export const WhyChooseUs: React.FC = () => {
         </div>
 
         {/* 4-column Grid matching screenshot */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {reasons.map((item) => {
             const isFlipped = flippedCardId === item.id;
             return (
               <div
                 key={item.id}
-                className={`group perspective-1000 h-[260px] w-full cursor-pointer ${isFlipped ? 'flipped' : ''}`}
+                className={`group perspective-1000 min-h-[250px] sm:h-[260px] w-full cursor-pointer ${isFlipped ? 'flipped' : ''}`}
                 onClick={() => handleCardClick(item.id)}
               >
                 <div className="flip-card-inner rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
                   {/* Front Face */}
-                  <div className="flip-card-front bg-white border border-slate-200/80 p-2 flex flex-col items-center justify-center text-center">
+                  <div className="flip-card-front bg-white border border-slate-200/80 p-3 sm:p-3.5 flex flex-col items-center justify-center text-center">
                     <div className="mb-2 text-brand-blue flex items-center justify-center">
                       {item.icon}
                     </div>
-                    <h3 className="font-outfit text-base sm:text-[17px] font-bold text-brand-navy mb-1 leading-snug">
+                    <h3 className="font-outfit text-base sm:text-[17px] font-bold text-black mb-1 leading-snug">
                       {item.title}
                     </h3>
                     <p
-                      className="line-clamp-3 text-center transition-transform duration-300 ease-out"
+                      className="line-clamp-3 text-center transition-transform duration-300 ease-out text-sm sm:text-[15px]"
                       style={{
                         fontFamily: '"Roboto", sans-serif',
-                        fontSize: '16px',
                         fontWeight: 400,
                         color: '#555555',
-                        lineHeight: '24px',
+                        lineHeight: '22px',
                         transition: 'transform 0.3s ease',
                         display: '-webkit-box',
                         overflow: 'hidden',
@@ -142,8 +141,8 @@ export const WhyChooseUs: React.FC = () => {
                   </div>
 
                   {/* Back Face (Brand Navy matching logo palette) */}
-                  <div className="flip-card-back bg-brand-navy text-white p-2 flex items-center justify-center text-center shadow-lg">
-                    <p className="font-medium text-sm sm:text-[15px] text-white leading-relaxed max-w-[220px]">
+                  <div className="flip-card-back bg-brand-navy text-white p-4 flex items-center justify-center text-center shadow-lg">
+                    <p className="font-medium text-xs sm:text-sm text-white leading-relaxed max-w-[220px]">
                       {item.backText}
                     </p>
                   </div>
